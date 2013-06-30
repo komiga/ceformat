@@ -1,0 +1,10 @@
+
+/**
+
+@defgroup aux Auxiliary stdlib specializations
+@details
+
+All specializations here use @c CEFORMAT_AUX_ALLOCATOR. Only
+allocator-aware stdlib classes are wrapped.
+
+*/

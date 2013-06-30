@@ -1,0 +1,40 @@
+{
+	"folders":
+	[
+		{
+			"name": "Root",
+			"path": "./",
+			"folder_exclude_patterns": [
+				"doc",
+				"ceformat",
+				"test"
+			]
+		},
+		{
+			"name": "- Documentation",
+			"path": "./doc/",
+			"folder_exclude_patterns": [
+				"html"
+			]
+		},
+		{
+			"name": "- Source",
+			"path": "./ceformat/"
+		},
+		{
+			"name": "- Test",
+			"path": "./test/",
+			"folder_exclude_patterns": [
+				"out"
+			],
+			"file_exclude_patterns": [
+				"Makefile",
+				"*.make"
+			]
+		}
+	],
+	"settings":
+	{
+		"tab_size": 4
+	}
+}
