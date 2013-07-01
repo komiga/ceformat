@@ -53,6 +53,141 @@ struct type_to_element {
 	}
 };
 
+template<
+	typename T
+>
+constexpr bool
+tte_boolean() noexcept {
+	return
+	std::is_same<
+		bool,
+		rm_cref_t<T>
+	>::value
+	;
+}
+
+template<
+	typename T
+>
+constexpr bool
+tte_integral() noexcept {
+	return
+	!tte_boolean<T>() &&
+	std::is_integral<
+		rm_ref_t<T>
+	>::value
+	;
+}
+
+template<
+	typename T
+>
+constexpr bool
+tte_floating_point() noexcept {
+	return
+	std::is_floating_point<
+		rm_ref_t<T>
+	>::value
+	;
+}
+
+template<
+	typename T
+>
+constexpr bool
+tte_string_charwise() noexcept {
+	return
+	(
+		std::is_array<rm_ref_t<T>>::value &&
+		1u == std::rank<rm_ref_t<T>>::value &&
+		std::is_same<
+			char,
+			rm_const_t<
+				typename std::remove_extent<
+					rm_ref_t<T>
+				>::type
+			>
+		>::value
+	) ||
+	std::is_same<
+		char const*,
+		rm_cref_t<T>
+	>::value
+	;
+}
+
+template<
+	typename T
+>
+constexpr bool
+tte_pointer() noexcept {
+	return
+	!tte_string_charwise<T>()
+
+	&& (
+		std::is_pointer<
+			rm_ref_t<T>
+		>::value ||
+		std::is_same< // really?
+			decltype(nullptr),
+			rm_ref_t<T>
+		>::value
+	)
+	;
+}
+
+// NB: SFINAE pissery due to stdlib not defining ostream operator<<
+// for decltype(nullptr)
+
+template<
+	typename T,
+	typename = void
+>
+struct tte_object_sfinae {
+	static constexpr bool
+	value = false;
+};
+
+template<
+	typename T
+>
+struct tte_object_sfinae<
+	T,
+	typename std::enable_if<
+		!tte_pointer<T>() &&
+		std::is_same<
+			std::ostream&,
+			decltype(std::declval<std::ostream&>() << std::declval<T&>())
+		>::value
+	>::type
+> {
+	static constexpr bool
+	value = true;
+};
+
+template<
+	typename T
+>
+constexpr bool
+tte_string() noexcept {
+	return
+	!tte_integral<T>() &&
+	!tte_boolean<T>() &&
+	!tte_floating_point<T>() &&
+	!tte_pointer<T>()
+
+	&& (
+		std::is_same<
+			String,
+			rm_cref_t<T>
+		>::value ||
+
+		tte_string_charwise<T>() ||
+		tte_object_sfinae<T>::value
+	)
+	;
+}
+
 // integral
 
 template<
@@ -61,13 +196,7 @@ template<
 struct type_to_element<
 	T,
 	typename std::enable_if<
-		!std::is_same<
-			bool,
-			rm_cref_t<T>
-		>::value &&
-		std::is_integral<
-			rm_ref_t<T>
-		>::value
+		tte_integral<T>()
 	>::type
 > {
 	using cast = T&&;
@@ -101,9 +230,7 @@ template<
 struct type_to_element<
 	T,
 	typename std::enable_if<
-		std::is_floating_point<
-			rm_ref_t<T>
-		>::value
+		tte_floating_point<T>()
 	>::type
 > {
 	using cast = T&&;
@@ -125,10 +252,7 @@ template<
 struct type_to_element<
 	T,
 	typename std::enable_if<
-		std::is_same<
-			bool,
-			rm_cref_t<T>
-		>::value
+		tte_boolean<T>()
 	>::type
 > {
 	using cast = T&&;
@@ -150,13 +274,7 @@ template<
 struct type_to_element<
 	T,
 	typename std::enable_if<
-		std::is_pointer<
-			rm_ref_t<T>
-		>::value ||
-		std::is_same< // really?
-			decltype(nullptr),
-			rm_ref_t<T>
-		>::value
+		tte_pointer<T>()
 	>::type
 > {
 	using cast = void const*;
@@ -178,47 +296,8 @@ template<
 struct type_to_element<
 	T,
 	typename std::enable_if<
-		// le hack
-		!std::is_integral<
-			rm_ref_t<T>
-		>::value &&
-		!std::is_floating_point<
-			rm_ref_t<T>
-		>::value &&
-		(
-			!std::is_pointer<
-				rm_ref_t<T>
-			>::value ||
-			std::is_same<
-				char const*,
-				rm_cref_t<T>
-			>::value
-		)
-
-		&& (
-		(
-			std::is_array<rm_ref_t<T>>::value &&
-			1u == std::rank<rm_ref_t<T>>::value &&
-			std::is_same<
-				char,
-				typename std::remove_extent<
-					rm_ref_t<T>
-				>::type
-			>::value
-		) ||
-		std::is_same<
-			String,
-			rm_cref_t<T>
-		>::value ||
-		std::is_same<
-			char const*,
-			rm_cref_t<T>
-		>::value ||
-		std::is_same<
-			std::ostream&,
-			decltype(std::declval<std::ostream&>() << std::declval<T&>())
-		>::value
-	)>::type
+		tte_string<T>()
+	>::type
 > {
 	using cast = T&&;
 	static constexpr bool valid = true;
