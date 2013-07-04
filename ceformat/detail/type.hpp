@@ -128,8 +128,8 @@ tte_pointer() noexcept {
 		std::is_pointer<
 			rm_ref_t<T>
 		>::value ||
-		std::is_same< // really?
-			decltype(nullptr),
+		std::is_same<
+			std::nullptr_t,
 			rm_ref_t<T>
 		>::value
 	)
@@ -137,7 +137,7 @@ tte_pointer() noexcept {
 }
 
 // NB: SFINAE pissery due to stdlib not defining ostream operator<<
-// for decltype(nullptr)
+// for std::nullptr_t
 
 template<
 	typename T,
