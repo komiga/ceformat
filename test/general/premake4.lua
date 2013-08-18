@@ -1,4 +1,5 @@
-create_tests(
+
+make_tests(
 	"general", {
-	{"format", "format.cpp"},
+	["format"] = {nil, nil},
 })
