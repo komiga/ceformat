@@ -2,3 +2,5 @@
 Makefile
 *.make
 out/
+
+general/format
