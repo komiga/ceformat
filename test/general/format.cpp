@@ -41,6 +41,16 @@ operator<<(
 
 namespace cf = ceformat;
 
+#define CEFORMAT_TEST_IOUT__(func__)										\
+	<< cf::func__<all>(-3, 42u, 0x12abcdef, 0777, 3.14f, "string") << '\n'	\
+	<< cf::func__<flags>(42, 42u, 42u, 42, 42.0f, true, ep, nullptr) << '\n'\
+	<< cf::func__<align>(-42, 42u, 42, 42u, -42.0f, false, ep) << '\n'		\
+	<< cf::func__<max>() << '\n'											\
+	<< cf::func__<obj>(obj.elements[0u]) << '\n'							\
+	<< cf::func__<obj>(concrete) << '\n'									\
+	<< cf::func__<obj>(Tracked{}) << '\n'									\
+	<< cf::func__<empty>() << '\n'
+
 signed
 main() {
 	std::cout
@@ -52,19 +62,18 @@ main() {
 		<< empty << '\n'
 		<< null << '\n'
 	;
+
 	cf::Element const* const ep = &obj.elements[0u];
 	Tracked concrete;
 	std::cout
-		<< "start:\n\n"
-		<< cf::print<all>(-3, 42u, 0x12abcdef, 0777, 3.14f, "string") << '\n'
-		<< cf::print<flags>(42, 42u, 42u, 42, 42.0f, true, ep, nullptr) << '\n'
-		<< cf::print<align>(-42, 42u, 42, 42u, -42.0f, false, ep) << '\n'
-		<< cf::print<max>() << '\n'
-		<< cf::print<obj>(obj.elements[0u]) << '\n'
-		<< cf::print<obj>(concrete) << '\n'
-		<< cf::print<obj>(Tracked{}) << '\n'
-		<< cf::print<empty>() << '\n'
+		<< "\nwith print:\n\n"
+		CEFORMAT_TEST_IOUT__(print)
+
+		<< "\nwith sentinel:\n\n"
+		CEFORMAT_TEST_IOUT__(write_sentinel)
 	;
+
+	std::cout << "\nwith write:\n\n";
 	cf::write<all>(std::cout, -3, 42u, 0x12abcdef, 0777, 3.14f, "string");
 	std::cout << '\n';
 	std::cout.flush();

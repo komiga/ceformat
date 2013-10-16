@@ -15,6 +15,9 @@ see @ref index or the accompanying LICENSE file for full text.
 #include <ceformat/Format.hpp>
 #include <ceformat/detail/type.hpp>
 
+#include <functional>
+#include <iostream>
+
 namespace ceformat {
 
 /**
@@ -243,6 +246,59 @@ print(
 		std::forward<ArgP>(args)...
 	);
 	return stream.str();
+}
+
+/** @cond INTERNAL */
+//namespace {
+struct FormatSentinel final {
+	using lambda_type = std::function<void(std::ostream&)>;
+	lambda_type lambda;
+};
+//} // anonymous namespace
+
+inline std::ostream&
+operator<<(
+	std::ostream& stream,
+	FormatSentinel const& sentinel
+) {
+	sentinel.lambda(stream);
+	return stream;
+}
+/** @endcond */
+
+/**
+	Construct iostream-formattable object.
+
+	@warning The sentinel holds a reference of the parameter pack
+	to avoid copies, which can reference temporaries. Because of
+	this, ensure the return value is written to a stream in a single
+	"statement" -- i.e., before the ending semicolon for this call.
+
+	@returns Object writeable to an @c std::ostream.
+	@tparam format %Format.
+	@tparam ...ArgP Argument pack.
+	@param args Arguments.
+*/
+template<
+	Format const& format,
+	typename... ArgP
+>
+inline FormatSentinel
+write_sentinel(
+	ArgP&&... args
+) {
+	// FIXME: Haha, neat. Defect in Clang 3.4 construes [&args...] as
+	// the GNU array range extension if the lambda is surrounded by {}
+	return FormatSentinel{FormatSentinel::lambda_type(
+		[&args...](
+			std::ostream& stream
+		) {
+			ceformat::write<format>(
+				stream,
+				args...
+			);
+		}
+	)};
 }
 
 /** @} */ // end of doc-group print
