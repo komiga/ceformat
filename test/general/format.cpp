@@ -41,11 +41,20 @@ operator<<(
 
 namespace cf = ceformat;
 
+char const
+strlit_solid[] = "strlit_solid";
+
+char const* const
+strlit_solid_unbound = "strlit_solid_unbound";
+
 #define CEFORMAT_TEST_IOUT__(func__)										\
 	<< cf::func__<all>(-3, 42u, 0x12abcdef, 0777, 3.14f, "string") << '\n'	\
 	<< cf::func__<flags>(42, 42u, 42u, 42, 42.0f, true, ep, nullptr) << '\n'\
 	<< cf::func__<align>(-42, 42u, 42, 42u, -42.0f, false, ep) << '\n'		\
 	<< cf::func__<max>() << '\n'											\
+	<< cf::func__<obj>("strlit") << '\n'									\
+	<< cf::func__<obj>(strlit_solid) << '\n'								\
+	<< cf::func__<obj>(strlit_solid_unbound) << '\n'						\
 	<< cf::func__<obj>(obj.elements[0u]) << '\n'							\
 	<< cf::func__<obj>(concrete) << '\n'									\
 	<< cf::func__<obj>(Tracked{}) << '\n'									\

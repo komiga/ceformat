@@ -97,6 +97,7 @@ template<
 constexpr bool
 tte_string_charwise() noexcept {
 	return
+	// bounded (e.g., literal or bounded variable)
 	(
 		std::is_array<rm_ref_t<T>>::value &&
 		1u == std::rank<rm_ref_t<T>>::value &&
@@ -109,6 +110,12 @@ tte_string_charwise() noexcept {
 			>
 		>::value
 	) ||
+	// unbounded non-const (e.g., from a system function)
+	std::is_same<
+		char*,
+		rm_cref_t<T>
+	>::value ||
+	// unbounded literal (e.g., variable)
 	std::is_same<
 		char const*,
 		rm_cref_t<T>
