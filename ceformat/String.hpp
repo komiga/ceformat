@@ -23,9 +23,9 @@ namespace ceformat {
 /**
 	Turn input into a UTF-8 encoded string literal.
 
-	@param x__ C-string literal.
+	@param s_ C-string literal.
 */
-#define CEFORMAT_STR_LIT(x__) u8 ## x__
+#define CEFORMAT_STR_LIT(s_) u8 ## s_
 
 /**
 	String type.
