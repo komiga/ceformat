@@ -8,11 +8,15 @@ It just so happens that this library implements C++ iostream string
 formatting with a constexpr format string parser. How this works at
 all is anyone's guess.
 
-## Compiler support
+## Building
 
-So far as I know, this will not work on any version of GCC (mainly due
-to reading data from an object during its construction). I've tested
-it with Clang 3.2.1, but it may not work in future versions.
+All features support Clang 3.3+ with libc++ (SVN head). GCC (as of 4.7.3) is
+not supported due to its lack of support for the use of values belonging to an
+object being constructed in a constant expression (and probably for many many
+other reasons).
+
+Tests can be compiled using plash's standard project protocol:
+http://komiga.com/pp-cpp
 
 ## License
 
