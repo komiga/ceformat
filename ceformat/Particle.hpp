@@ -83,6 +83,7 @@ s_particle_numeral{Particle::numeral},
 s_particles[]{
 	// types
 	{ELEMENT_CHAR, ElementType::esc},
+	{'c', ElementType::chr},
 	{'d', ElementType::dec},
 	{'u', ElementType::uns},
 	{'x', ElementType::hex},

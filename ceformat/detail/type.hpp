@@ -219,6 +219,12 @@ struct type_to_element<
 		|| ElementType::oct == type
 			? true
 
+		: ElementType::chr == type
+			? std::is_same<
+				char,
+				rm_cref_t<T>
+			>::value
+
 		: ElementType::uns == type
 			? std::is_unsigned<
 				rm_ref_t<T>

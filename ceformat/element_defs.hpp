@@ -47,6 +47,7 @@ enum : char {
 enum class ElementType : unsigned {
 	end = 0u,	/**< Terminator or invalid. */
 	esc,		/**< Escaped @c ELEMENT_CHAR. */
+	chr,		/**< Character. */
 	dec,		/**< Integral with decimal base. */
 	uns,		/**< Unsigned integral with decimal base. */
 	hex,		/**< Integral with hexadecimal base. */
@@ -82,6 +83,7 @@ enum class ElementFlags : unsigned {
 	*/
 	permitted_end = none,
 	permitted_esc = none,
+	permitted_chr = left_align,
 	permitted_dec = all & ~show_base,
 	permitted_uns = all & ~show_base,
 	permitted_hex = all & ~show_sign,
@@ -99,6 +101,7 @@ static constexpr unsigned const
 s_flags_permitted[]{
 	static_cast<unsigned>(ElementFlags::permitted_end),
 	static_cast<unsigned>(ElementFlags::permitted_esc),
+	static_cast<unsigned>(ElementFlags::permitted_chr),
 	static_cast<unsigned>(ElementFlags::permitted_dec),
 	static_cast<unsigned>(ElementFlags::permitted_uns),
 	static_cast<unsigned>(ElementFlags::permitted_hex),
@@ -113,6 +116,7 @@ static constexpr char const
 s_type_values[]{
 	'\0',
 	ELEMENT_CHAR,
+	'c',
 	'd',
 	'u',
 	'x',
@@ -126,6 +130,7 @@ s_type_name_invalid[] = "INVALID",
 * const s_type_names[]{
 	"end",
 	"esc",
+	"chr",
 	"dec",
 	"uns",
 	"hex",
