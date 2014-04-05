@@ -1,5 +1,5 @@
 /**
-@file detail/Particle.hpp
+@file Particle.hpp
 @brief Particle class and utilities.
 
 @author Timothy Howard
@@ -7,14 +7,13 @@
 see @ref index or the accompanying LICENSE file for full text.
 */
 
-#ifndef CEFORMAT_DETAIL_PARTICLE_HPP_
-#define CEFORMAT_DETAIL_PARTICLE_HPP_
+#ifndef CEFORMAT_PARTICLE_HPP_
+#define CEFORMAT_PARTICLE_HPP_
 
 #include <ceformat/config.hpp>
 #include <ceformat/element_defs.hpp>
 
 namespace ceformat {
-namespace detail {
 
 // Forward declarations
 struct Particle;
@@ -109,23 +108,22 @@ particle_classify(
 	std::size_t const index = 0u
 ) noexcept {
 	return
-	// numeral could be width or ElementFlags::zero_padded
+	// Numeral could be width or ElementFlags::zero_padded
 	('0' <= value && '9' >= value)
 		? s_particle_numeral
 
-	// end or match
+	// End or match
 	: ParticleKind::invalid == s_particles[index].kind
 	|| value == s_particles[index].value
 		? s_particles[index]
 
-	// continue
+	// Continue
 	: particle_classify(value, index + 1u)
 	;
 }
 
 /** @} */ // end of doc-group particle
 
-} // namespace detail
 } // namespace ceformat
 
-#endif // CEFORMAT_DETAIL_PARTICLE_HPP_
+#endif // CEFORMAT_PARTICLE_HPP_
