@@ -13,7 +13,7 @@ static constexpr ceformat::Format const
 	//bad_flag_4{"%#s"},
 	//bad_width{"%1%"},
 
-	all{"%% %d %u %#x %#o %f %s"},
+	all{"%% %d %u %#x %#o %f %s %c"},
 	flags{"%+-2d %u %#x %#o %f %b %#08p %#p"},
 	align{"[%-4d] [%4u] [%-#6x] [%#4o] [%012f] [%-10b] [%#016p]"},
 	max{"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"},
@@ -47,18 +47,19 @@ strlit_solid[] = "strlit_solid";
 char const* const
 strlit_solid_unbound = "strlit_solid_unbound";
 
-#define CEFORMAT_TEST_IOUT__(func__)										\
-	<< cf::func__<all>(-3, 42u, 0x12abcdef, 0777, 3.14f, "string") << '\n'	\
-	<< cf::func__<flags>(42, 42u, 42u, 42, 42.0f, true, ep, nullptr) << '\n'\
-	<< cf::func__<align>(-42, 42u, 42, 42u, -42.0f, false, ep) << '\n'		\
-	<< cf::func__<max>() << '\n'											\
-	<< cf::func__<obj>("strlit") << '\n'									\
-	<< cf::func__<obj>(strlit_solid) << '\n'								\
-	<< cf::func__<obj>(strlit_solid_unbound) << '\n'						\
-	<< cf::func__<obj>(obj.elements[0u]) << '\n'							\
-	<< cf::func__<obj>(concrete) << '\n'									\
-	<< cf::func__<obj>(Tracked{}) << '\n'									\
-	<< cf::func__<empty>() << '\n'
+#define CEFORMAT_TEST_IO(f_)												\
+	<< cf::f_<all>(-3, 42u, 0x12abcdef, 0777, 3.14f, "string", 'A') << '\n'	\
+	<< cf::f_<flags>(42, 42u, 42u, 42, 42.0f, true, ep, nullptr) << '\n'	\
+	<< cf::f_<align>(-42, 42u, 42, 42u, -42.0f, false, ep) << '\n'			\
+	<< cf::f_<max>() << '\n'												\
+	<< cf::f_<obj>("strlit") << '\n'										\
+	<< cf::f_<obj>(strlit_solid) << '\n'									\
+	<< cf::f_<obj>(strlit_solid_unbound) << '\n'							\
+	<< cf::f_<obj>(obj.elements[0u]) << '\n'								\
+	<< cf::f_<obj>(concrete) << '\n'										\
+	<< cf::f_<obj>(Tracked{}) << '\n'										\
+	<< cf::f_<empty>() << '\n'												\
+	<< "null: " << cf::f_<null>() << '\n'
 
 signed
 main() {
@@ -76,14 +77,14 @@ main() {
 	Tracked concrete;
 	std::cout
 		<< "\nwith print:\n\n"
-		CEFORMAT_TEST_IOUT__(print)
+		CEFORMAT_TEST_IO(print)
 
 		<< "\nwith sentinel:\n\n"
-		CEFORMAT_TEST_IOUT__(write_sentinel)
+		CEFORMAT_TEST_IO(write_sentinel)
 	;
 
 	std::cout << "\nwith write:\n\n";
-	cf::write<all>(std::cout, -3, 42u, 0x12abcdef, 0777, 3.14f, "string");
+	cf::write<all>(std::cout, -3, 42u, 0x12abcdef, 0777, 3.14f, "string", 'A');
 	std::cout << '\n';
 	std::cout.flush();
 }
