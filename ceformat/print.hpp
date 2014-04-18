@@ -12,9 +12,11 @@ see @ref index or the accompanying LICENSE file for full text.
 
 #include <ceformat/config.hpp>
 #include <ceformat/String.hpp>
+#include <ceformat/element_defs.hpp>
 #include <ceformat/Format.hpp>
 #include <ceformat/detail/type.hpp>
 
+#include <type_traits>
 #include <functional>
 #include <iostream>
 
@@ -34,6 +36,7 @@ static constexpr ios::fmtflags const
 type_flag_table[]{
 	static_cast<ios::fmtflags>(0u),	// end
 	static_cast<ios::fmtflags>(0u),	// esc
+	static_cast<ios::fmtflags>(0u),	// chr
 	ios::dec,		// dec
 	ios::dec,		// uns
 	ios::hex,		// hex
@@ -53,6 +56,12 @@ stream_flag_mask
 	| ios::fixed
 	| ios::boolalpha
 ;
+
+static_assert(
+	static_cast<unsigned>(ElementType::NUM) ==
+	std::extent<decltype(type_flag_table)>::value,
+	"type_flag_table needs to be updated to match ElementType"
+);
 
 template<
 	Format const& format,

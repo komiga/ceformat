@@ -55,7 +55,8 @@ enum class ElementType : unsigned {
 	flt,		/**< Floating-point. */
 	boo,		/**< Boolean (boolalpha). */
 	ptr,		/**< Pointer. */
-	str			/**< String or object. */
+	str,		/**< String or object. */
+	NUM			/**< Number of types. */
 };
 
 /**
