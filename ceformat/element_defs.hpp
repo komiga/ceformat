@@ -7,8 +7,7 @@
 see @ref index or the accompanying LICENSE file for full text.
 */
 
-#ifndef CEFORMAT_ELEMENT_DEFS_HPP_
-#define CEFORMAT_ELEMENT_DEFS_HPP_
+#pragma once
 
 #include <ceformat/config.hpp>
 
@@ -205,4 +204,3 @@ element_flag_count(
 
 } // namespace ceformat
 
-#endif // CEFORMAT_ELEMENT_DEFS_HPP_

@@ -7,8 +7,7 @@
 see @ref index or the accompanying LICENSE file for full text.
 */
 
-#ifndef CEFORMAT_FORMAT_DEBUG_HPP_
-#define CEFORMAT_FORMAT_DEBUG_HPP_
+#pragma once
 
 #include <ceformat/config.hpp>
 #include <ceformat/Format.hpp>
@@ -89,4 +88,3 @@ namespace ceformat {
 
 /** @} */ // end of doc-group format
 
-#endif // CEFORMAT_FORMAT_DEBUG_HPP_

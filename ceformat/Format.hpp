@@ -7,8 +7,7 @@
 see @ref index or the accompanying LICENSE file for full text.
 */
 
-#ifndef CEFORMAT_FORMAT_HPP_
-#define CEFORMAT_FORMAT_HPP_
+#pragma once
 
 #include <ceformat/config.hpp>
 #include <ceformat/utility.hpp>
@@ -322,4 +321,3 @@ public:
 
 } // namespace ceformat
 
-#endif // CEFORMAT_FORMAT_HPP_

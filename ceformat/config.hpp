@@ -7,8 +7,7 @@
 see @ref index or the accompanying LICENSE file for full text.
 */
 
-#ifndef CEFORMAT_CONFIG_HPP_
-#define CEFORMAT_CONFIG_HPP_
+#pragma once
 
 #include <cstddef>
 
@@ -73,4 +72,3 @@ namespace ceformat {
 
 } // namespace ceformat
 
-#endif // CEFORMAT_CONFIG_HPP_

@@ -7,8 +7,7 @@
 see @ref index or the accompanying LICENSE file for full text.
 */
 
-#ifndef CEFORMAT_AUX_HPP_
-#define CEFORMAT_AUX_HPP_
+#pragma once
 
 #include <ceformat/config.hpp>
 
@@ -54,4 +53,3 @@ using basic_ostringstream
 } // namespace aux
 } // namespace ceformat
 
-#endif // CEFORMAT_AUX_HPP_

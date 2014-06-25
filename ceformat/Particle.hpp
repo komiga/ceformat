@@ -7,8 +7,7 @@
 see @ref index or the accompanying LICENSE file for full text.
 */
 
-#ifndef CEFORMAT_PARTICLE_HPP_
-#define CEFORMAT_PARTICLE_HPP_
+#pragma once
 
 #include <ceformat/config.hpp>
 #include <ceformat/element_defs.hpp>
@@ -127,4 +126,3 @@ particle_classify(
 
 } // namespace ceformat
 
-#endif // CEFORMAT_PARTICLE_HPP_

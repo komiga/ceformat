@@ -7,8 +7,7 @@
 see @ref index or the accompanying LICENSE file for full text.
 */
 
-#ifndef CEFORMAT_UTILITY_HPP_
-#define CEFORMAT_UTILITY_HPP_
+#pragma once
 
 #include <ceformat/config.hpp>
 
@@ -85,4 +84,3 @@ digit_count(
 } // namespace utility
 } // namespace ceformat
 
-#endif // CEFORMAT_UTILITY_HPP_

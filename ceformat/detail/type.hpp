@@ -7,8 +7,7 @@
 see @ref index or the accompanying LICENSE file for full text.
 */
 
-#ifndef CEFORMAT_DETAIL_TYPE_HPP_
-#define CEFORMAT_DETAIL_TYPE_HPP_
+#pragma once
 
 #include <ceformat/config.hpp>
 #include <ceformat/String.hpp>
@@ -384,4 +383,3 @@ type_check() noexcept {
 } // namespace detail
 } // namespace ceformat
 
-#endif // CEFORMAT_DETAIL_TYPE_HPP_

@@ -7,8 +7,7 @@
 see @ref index or the accompanying LICENSE file for full text.
 */
 
-#ifndef CEFORMAT_PRINT_HPP_
-#define CEFORMAT_PRINT_HPP_
+#pragma once
 
 #include <ceformat/config.hpp>
 #include <ceformat/String.hpp>
@@ -314,4 +313,3 @@ write_sentinel(
 
 } // namespace ceformat
 
-#endif // CEFORMAT_PRINT_HPP_

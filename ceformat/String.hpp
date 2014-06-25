@@ -7,8 +7,7 @@
 see @ref index or the accompanying LICENSE file for full text.
 */
 
-#ifndef CEFORMAT_STRING_HPP_
-#define CEFORMAT_STRING_HPP_
+#pragma once
 
 #include <ceformat/config.hpp>
 #include <ceformat/aux.hpp>
@@ -43,4 +42,3 @@ using OutputStringStream = CEFORMAT_CONFIG_OSTRINGSTREAM_TYPE;
 
 } // namespace ceformat
 
-#endif // CEFORMAT_STRING_HPP_
