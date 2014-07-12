@@ -52,4 +52,3 @@ using basic_ostringstream
 
 } // namespace aux
 } // namespace ceformat
-

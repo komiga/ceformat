@@ -320,4 +320,3 @@ public:
 /** @} */ // end of doc-group format
 
 } // namespace ceformat
-

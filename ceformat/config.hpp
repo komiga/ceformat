@@ -71,4 +71,3 @@ namespace ceformat {
 /** @} */ // end of doc-group config
 
 } // namespace ceformat
-

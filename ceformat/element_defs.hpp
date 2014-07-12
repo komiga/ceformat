@@ -203,4 +203,3 @@ element_flag_count(
 /** @} */ // end of doc-group format
 
 } // namespace ceformat
-

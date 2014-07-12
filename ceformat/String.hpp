@@ -41,4 +41,3 @@ using OutputStringStream = CEFORMAT_CONFIG_OSTRINGSTREAM_TYPE;
 /** @} */ // end of doc-group string
 
 } // namespace ceformat
-

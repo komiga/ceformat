@@ -312,4 +312,3 @@ write_sentinel(
 /** @} */ // end of doc-group print
 
 } // namespace ceformat
-

@@ -83,4 +83,3 @@ digit_count(
 
 } // namespace utility
 } // namespace ceformat
-

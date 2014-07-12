@@ -382,4 +382,3 @@ type_check() noexcept {
 
 } // namespace detail
 } // namespace ceformat
-

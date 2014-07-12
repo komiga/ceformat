@@ -125,4 +125,3 @@ particle_classify(
 /** @} */ // end of doc-group particle
 
 } // namespace ceformat
-
