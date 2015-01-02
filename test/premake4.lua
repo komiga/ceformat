@@ -94,10 +94,4 @@ precore.make_solution(
 
 include("general")
 
-if "clean" == _ACTION then
-	for _, pc_sol in pairs(precore.state.solutions) do
-		for _, pc_proj in pairs(pc_sol.projects) do
-			os.rmdir(path.join(pc_proj.obj.basedir, "out"))
-		end
-	end
-end
+precore.action_clean("out")
