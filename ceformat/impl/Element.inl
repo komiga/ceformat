@@ -206,7 +206,7 @@ Element::cons_width_inner(
 	: ParticleKind::type == particle.kind
 		? width_accum
 
-	// Continue (ParticleKind::Clag)
+	// Continue (ParticleKind::flag)
 	: cons_width(next, in_width, width_accum)
 	;
 }
