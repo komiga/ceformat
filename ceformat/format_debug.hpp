@@ -1,5 +1,5 @@
 /**
-@file format_debug.hpp
+@file
 @brief Format debugging utilities.
 
 @author Timothy Howard

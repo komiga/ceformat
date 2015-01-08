@@ -1,5 +1,5 @@
 /**
-@file detail/type.hpp
+@file
 @brief Type checking and T-ElementType conversion.
 
 @author Timothy Howard

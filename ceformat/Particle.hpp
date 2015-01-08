@@ -1,5 +1,5 @@
 /**
-@file Particle.hpp
+@file
 @brief Particle class and utilities.
 
 @author Timothy Howard
