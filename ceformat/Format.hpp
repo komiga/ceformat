@@ -53,9 +53,7 @@ public:
 	std::size_t const end;
 
 private:
-	enum invalid_t {
-		invalid
-	};
+	enum class ctor_invalid {};
 
 	bool valid_;
 
@@ -63,7 +61,7 @@ private:
 	Element(
 		Format const& fmt,
 		std::size_t const index,
-		enum invalid_t const
+		ctor_invalid const
 	) noexcept;
 
 	constexpr
@@ -172,7 +170,7 @@ private:
 		return
 		// Construct all elements past ElementType::end as invalid
 		0u < index && ElementType::end == this->elements[index - 1].type
-			? Element{*this, index, Element::invalid}
+			? Element{*this, index, Element::ctor_invalid{}}
 
 		// Fill next slot
 		: Element{

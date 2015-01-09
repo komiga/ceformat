@@ -10,7 +10,7 @@ constexpr
 Element::Element(
 	Format const& fmt,
 	std::size_t const index,
-	enum invalid_t const
+	Element::ctor_invalid const
 ) noexcept
 	: fmt(fmt)
 	, idx(index)
