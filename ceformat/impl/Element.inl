@@ -120,9 +120,6 @@ Element::cons_flags_inner(
 		? ParticleKind::numeral != particle.kind
 			? throw std::logic_error("expected numeral after precision marker")
 
-		: '0' == value
-			? throw std::logic_error("precision must not have a leading zero")
-
 		: cons_flags(
 			next,
 			zero_padded,
