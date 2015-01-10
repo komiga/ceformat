@@ -15,11 +15,12 @@ static constexpr ceformat::Format const
 
 	all{"%% %d %u %#x %#o %f %s %c"},
 	flags{"%+-2d %u %#x %#o %f %b %#08p %#p"},
-	align{"[%-4d] [%4u] [%-#6x] [%#4o] [%012f] [%-10b] [%#016p]"},
+	align{"[%-4d] [%4u] [%-#6x] [%#4o] [%07.2f] [%-10b] [%#016p]"},
 	max{"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"},
 	obj{"%s"},
 	empty{"empty"},
-	null{""}
+	null{""},
+	floats{"%f/%#f %e/%#e %g/%#g %g %g %010f %010.4f %f %.4f"}
 ;
 
 #define SNOTE(n__) std::cout << "Tracked(" n__ ")\n";
@@ -85,6 +86,16 @@ main() {
 
 	std::cout << "\nwith write:\n\n";
 	cf::write<all>(std::cout, -3, 42u, 0x12abcdef, 0777, 3.14f, "string", 'A');
+	std::cout << '\n';
+	cf::write<floats>(
+		std::cout,
+		// normal/alternative
+		1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f,
+		// generic
+		3.14f, 3.00014e06f,
+		// width & precision
+		3.14f, 3.14f, 3.14f, 3.14f
+	);
 	std::cout << '\n';
 	std::cout.flush();
 }
