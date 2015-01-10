@@ -60,7 +60,7 @@ enum class ElementType : unsigned {
 	Element flags.
 */
 enum class ElementFlags : unsigned {
-	show_base	= 1 << 0, /**< Show base. */
+	alternative	= 1 << 0, /**< Alternative representation (e.g., show base). */
 	show_sign	= 1 << 1, /**< Always show sign. */
 	zero_padded	= 1 << 2, /**< Zero-pad instead of space-pad. */
 	left_align	= 1 << 3, /**< Align left. */
@@ -70,7 +70,7 @@ enum class ElementFlags : unsigned {
 
 	/** All flags. */
 	all
-		= show_base
+		= alternative
 		| show_sign
 		| zero_padded
 		| left_align
@@ -82,11 +82,11 @@ enum class ElementFlags : unsigned {
 	permitted_end = none,
 	permitted_esc = none,
 	permitted_chr = left_align,
-	permitted_dec = all & ~show_base,
-	permitted_uns = all & ~show_base,
+	permitted_dec = all & ~alternative,
+	permitted_uns = all & ~alternative,
 	permitted_hex = all & ~show_sign,
 	permitted_oct = all & ~show_sign,
-	permitted_flt = all & ~show_base,
+	permitted_flt = all,
 	permitted_boo = left_align,
 	permitted_ptr = all & ~show_sign,
 	permitted_str = left_align

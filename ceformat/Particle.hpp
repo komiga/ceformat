@@ -91,12 +91,14 @@ s_particles[]{
 	{'x', ElementType::hex},
 	{'o', ElementType::oct},
 	{'f', ElementType::flt},
+	{'e', ElementType::flt},
+	{'g', ElementType::flt},
 	{'b', ElementType::boo},
 	{'p', ElementType::ptr},
 	{'s', ElementType::str},
 
 	// flags
-	{'#', ElementFlags::show_base},
+	{'#', ElementFlags::alternative},
 	{'+', ElementFlags::show_sign},
 	// s_particle_numeral catches this
 	//{'0', ElementFlags::zero_padded},

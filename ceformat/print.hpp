@@ -30,18 +30,20 @@ namespace {
 using ios = std::ios_base;
 
 static constexpr ios::fmtflags const
+flag_none
+	= static_cast<ios::fmtflags>(0u),
 type_flag_table[]{
-	static_cast<ios::fmtflags>(0u),	// end
-	static_cast<ios::fmtflags>(0u),	// esc
-	static_cast<ios::fmtflags>(0u),	// chr
+	flag_none,	// end
+	flag_none,	// esc
+	flag_none,	// chr
 	ios::dec,		// dec
 	ios::dec,		// uns
 	ios::hex,		// hex
 	ios::oct,		// oct
-	ios::fixed,		// flt
+	flag_none,		// flt; handled based on format symbol
 	ios::boolalpha,	// boo
 	ios::hex,		// ptr
-	static_cast<ios::fmtflags>(0u)	// str
+	flag_none	// str
 },
 stream_flag_mask
 	= ios::showpos
@@ -50,7 +52,6 @@ stream_flag_mask
 	| ios::basefield
 	| ios::floatfield
 	| ios::adjustfield
-	| ios::fixed
 	| ios::boolalpha
 ;
 
@@ -83,17 +84,16 @@ write_element(
 	};
 
 	ios::fmtflags stream_flags
-		= ios::showpoint
-		| type_flag_table[static_cast<unsigned>(element.type)]
+		= type_flag_table[static_cast<unsigned>(element.type)]
 
 		// element flags
-		| (element.has_flag(ElementFlags::show_base)
-			? ios::showbase
-			: static_cast<ios::fmtflags>(0u)
+		| (element.has_flag(ElementFlags::alternative)
+			? ios::showbase | ios::showpoint
+			: flag_none
 		)
 		| (element.has_flag(ElementFlags::show_sign)
 			? ios::showpos
-			: static_cast<ios::fmtflags>(0u)
+			: flag_none
 		)
 		| (element.has_flag(ElementFlags::left_align)
 			? ios::left
@@ -105,6 +105,16 @@ write_element(
 			? '0'
 			: ' '
 	);
+
+	switch ((element.fmt.string + element.end)[-1]) {
+	case 'f': stream_flags |= ios::fixed; break;
+	case 'e': stream_flags |= ios::scientific; break;
+	case 'g':
+		if (!element.has_flag(ElementFlags::alternative)) {
+			stream_flags &= ~ios::showpoint;
+		}
+		break;
+	}
 
 	if (0u != element.width) {
 		stream.width(static_cast<std::streamsize>(element.width));
