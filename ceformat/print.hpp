@@ -73,10 +73,12 @@ write_element(
 	struct {
 		ios::fmtflags flags;
 		std::streamsize width;
+		std::streamsize precision;
 		char fill;
 	} const orig{
 		stream.flags(),
 		stream.width(),
+		stream.precision(),
 		stream.fill()
 	};
 
@@ -107,6 +109,9 @@ write_element(
 	if (0u != element.width) {
 		stream.width(static_cast<std::streamsize>(element.width));
 	}
+	if (-1 != element.precision) {
+		stream.precision(static_cast<std::streamsize>(element.precision));
+	}
 
 	stream.setf(
 		stream_flags,
@@ -123,6 +128,9 @@ write_element(
 	stream.flags(orig.flags);
 	if (0u != element.width) {
 		stream.width(orig.width);
+	}
+	if (-1 != element.precision) {
+		stream.precision(orig.precision);
 	}
 }
 

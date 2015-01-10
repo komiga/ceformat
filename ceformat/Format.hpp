@@ -17,8 +17,6 @@
 #include <ostream>
 #include <sstream>
 
-// TODO: Floating-point precision
-
 namespace ceformat {
 
 // Forward declarations
@@ -49,13 +47,21 @@ public:
 	unsigned const flags;
 	/** Width. */
 	std::size_t const width;
+	/** Floating-point precision. */
+	signed const precision;
 	/** Ending position. */
 	std::size_t const end;
 
 private:
+	bool valid_;
+
 	enum class ctor_invalid {};
 
-	bool valid_;
+	enum class NumeralSegment : unsigned {
+		none = 0u,
+		width,
+		precision,
+	};
 
 	constexpr
 	Element(
@@ -82,7 +88,8 @@ private:
 		Particle const& particle,
 		std::size_t const next,
 		bool const zero_padded,
-		bool const in_width,
+		NumeralSegment const segment,
+		bool const precision_prelude,
 		unsigned const c_flags
 	) const noexcept;
 
@@ -90,7 +97,8 @@ private:
 	cons_flags(
 		std::size_t const pos,
 		bool const zero_padded,
-		bool const in_width,
+		NumeralSegment const segment,
+		bool const precision_prelude,
 		unsigned const c_flags
 	) const noexcept;
 
@@ -122,6 +130,22 @@ private:
 		std::size_t pos,
 		bool const in_width,
 		unsigned const width_accum
+	) const noexcept;
+
+	constexpr signed
+	cons_precision_inner(
+		char const value,
+		Particle const& particle,
+		std::size_t const next,
+		bool const in_precision,
+		signed const precision_accum
+	) const noexcept;
+
+	constexpr signed
+	cons_precision(
+		std::size_t pos,
+		bool const in_precision,
+		signed const precision_accum
 	) const noexcept;
 
 	constexpr bool

@@ -34,6 +34,7 @@ operator<<(
 		<< ", beg = " << e.beg
 		<< ", end = " << e.end
 		<< ", width = " << e.width
+		<< ", precision = " << e.precision
 		<< ", flags = " << e.flags
 		<< ", type = " << ceformat::get_element_type_name(e.type)
 	;

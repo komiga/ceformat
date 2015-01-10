@@ -24,7 +24,8 @@ enum class ParticleKind : unsigned {
 	invalid = 0u,
 	type,
 	flag,
-	numeral
+	numeral,
+	precision,
 };
 
 struct Particle final {
@@ -37,7 +38,8 @@ struct Particle final {
 
 	enum ctor_kind_sentinel {
 		invalid = 0,
-		numeral
+		numeral,
+		precision,
 	};
 
 	constexpr
@@ -47,6 +49,8 @@ struct Particle final {
 		: kind(
 			ctor_kind_sentinel::numeral == sentinel
 				? ParticleKind::numeral
+			: ctor_kind_sentinel::precision == sentinel
+				? ParticleKind::precision
 			: ParticleKind::invalid
 		)
 		, value('\0')
@@ -77,6 +81,7 @@ struct Particle final {
 namespace {
 constexpr Particle const
 s_particle_numeral{Particle::numeral},
+s_particle_precision{Particle::precision},
 s_particles[]{
 	// types
 	{ELEMENT_CHAR, ElementType::esc},
@@ -101,22 +106,36 @@ s_particles[]{
 } // anonymous namespace
 
 constexpr Particle const&
+particle_classify_find(
+	char const value,
+	std::size_t const index
+) noexcept {
+	return
+	// End or match
+	ParticleKind::invalid == s_particles[index].kind
+	|| value == s_particles[index].value
+		? s_particles[index]
+
+	// Continue
+	: particle_classify_find(value, index + 1u)
+	;
+}
+
+constexpr Particle const&
 particle_classify(
 	char const value,
 	std::size_t const index = 0u
 ) noexcept {
 	return
 	// Numeral could be width or ElementFlags::zero_padded
-	('0' <= value && '9' >= value)
+	('0' <= value && value <= '9')
 		? s_particle_numeral
 
-	// End or match
-	: ParticleKind::invalid == s_particles[index].kind
-	|| value == s_particles[index].value
-		? s_particles[index]
+	// Precision specifier
+	: '.' == value
+		? s_particle_precision
 
-	// Continue
-	: particle_classify(value, index + 1u)
+	: particle_classify_find(value, index)
 	;
 }
 
