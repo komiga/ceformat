@@ -24,18 +24,16 @@ namespace utility {
 	@tparam T Value type.
 	@param x, y Values.
 */
-template<
-	typename T
->
+template<class T>
 constexpr T
 min_ce(
 	T const x,
 	T const y
 ) noexcept {
 	return
-	x < y
+		x < y
 		? x
-	: y
+		: y
 	;
 }
 

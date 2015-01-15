@@ -24,26 +24,22 @@ namespace aux {
 	@c std::basic_string<CharT, Traits>.
 */
 template<
-	typename CharT,
+	class CharT,
 	class Traits = std::char_traits<CharT>
 >
-using basic_string
-= std::basic_string<
-	CharT, Traits,
-	CEFORMAT_AUX_ALLOCATOR<CharT>
+using basic_string = std::basic_string<
+	CharT, Traits, CEFORMAT_AUX_ALLOCATOR<CharT>
 >;
 
 /**
 	@c std::basic_stringstream<CharT, Traits>.
 */
 template<
-	typename CharT,
+	class CharT,
 	class Traits = std::char_traits<CharT>
 >
-using basic_ostringstream
-= std::basic_ostringstream<
-	CharT, Traits,
-	CEFORMAT_AUX_ALLOCATOR<CharT>
+using basic_ostringstream = std::basic_ostringstream<
+	CharT, Traits, CEFORMAT_AUX_ALLOCATOR<CharT>
 >;
 
 /** @} */ // end of doc-group aux

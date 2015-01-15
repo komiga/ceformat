@@ -17,25 +17,19 @@
 namespace ceformat {
 namespace detail {
 
-template<
-	typename T
->
+template<class T>
 using rm_const_t = typename std::remove_const<T>::type;
 
-template<
-	typename T
->
+template<class T>
 using rm_ref_t = typename std::remove_reference<T>::type;
 
-template<
-	typename T
->
+template<class T>
 using rm_cref_t = rm_const_t<typename std::remove_reference<T>::type>;
 
 // NB: cast is rvalue reference to avoid calling _any_ ctors
 // when using ouput argument in expression.
 template<
-	typename T,
+	class T,
 	class = void
 >
 struct type_to_element {
@@ -50,9 +44,7 @@ struct type_to_element {
 	}
 };
 
-template<
-	typename T
->
+template<class T>
 constexpr bool
 tte_boolean() noexcept {
 	return
@@ -63,9 +55,7 @@ tte_boolean() noexcept {
 	;
 }
 
-template<
-	typename T
->
+template<class T>
 constexpr bool
 tte_integral() noexcept {
 	return
@@ -76,9 +66,7 @@ tte_integral() noexcept {
 	;
 }
 
-template<
-	typename T
->
+template<class T>
 constexpr bool
 tte_floating_point() noexcept {
 	return
@@ -88,9 +76,7 @@ tte_floating_point() noexcept {
 	;
 }
 
-template<
-	typename T
->
+template<class T>
 constexpr bool
 tte_string_charwise() noexcept {
 	return
@@ -120,9 +106,7 @@ tte_string_charwise() noexcept {
 	;
 }
 
-template<
-	typename T
->
+template<class T>
 constexpr bool
 tte_pointer() noexcept {
 	return
@@ -144,17 +128,15 @@ tte_pointer() noexcept {
 // for std::nullptr_t
 
 template<
-	typename T,
-	typename = void
+	class T,
+	class = void
 >
 struct tte_object_sfinae {
 	static constexpr bool
 	value = false;
 };
 
-template<
-	typename T
->
+template<class T>
 struct tte_object_sfinae<
 	T,
 	typename std::enable_if<
@@ -169,9 +151,7 @@ struct tte_object_sfinae<
 	value = true;
 };
 
-template<
-	typename T
->
+template<class T>
 constexpr bool
 tte_string() noexcept {
 	return
@@ -194,9 +174,7 @@ tte_string() noexcept {
 
 // integral
 
-template<
-	typename T
->
+template<class T>
 struct type_to_element<
 	T,
 	typename std::enable_if<
@@ -234,9 +212,7 @@ struct type_to_element<
 
 // floating-point
 
-template<
-	typename T
->
+template<class T>
 struct type_to_element<
 	T,
 	typename std::enable_if<
@@ -256,9 +232,7 @@ struct type_to_element<
 
 // boolean
 
-template<
-	typename T
->
+template<class T>
 struct type_to_element<
 	T,
 	typename std::enable_if<
@@ -278,9 +252,7 @@ struct type_to_element<
 
 // pointer
 
-template<
-	typename T
->
+template<class T>
 struct type_to_element<
 	T,
 	typename std::enable_if<
@@ -300,9 +272,7 @@ struct type_to_element<
 
 // string/object
 
-template<
-	typename T
->
+template<class T>
 struct type_to_element<
 	T,
 	typename std::enable_if<
@@ -324,7 +294,7 @@ namespace {
 
 template<
 	Format const&,
-	typename...
+	class...
 >
 struct type_check_impl;
 
@@ -342,8 +312,8 @@ struct type_check_impl<format> {
 
 template<
 	Format const& format, 
-	typename I,
-	typename... P
+	class I,
+	class... P
 >
 struct type_check_impl<format, I, P...> {
 	static constexpr bool
@@ -367,7 +337,7 @@ struct type_check_impl<format, I, P...> {
 
 template<
 	Format const& format,
-	typename... ArgP
+	class... ArgP
 >
 constexpr bool
 type_check() noexcept {

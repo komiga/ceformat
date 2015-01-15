@@ -63,7 +63,7 @@ static_assert(
 
 template<
 	Format const& format,
-	typename Arg
+	class Arg
 >
 inline void
 write_element(
@@ -170,8 +170,8 @@ write_impl(
 
 template<
 	Format const& format,
-	typename ArgF,
-	typename... ArgP
+	class ArgF,
+	class... ArgP
 >
 inline void
 write_impl(
@@ -222,7 +222,7 @@ write_impl(
 */
 template<
 	Format const& format,
-	typename... ArgP
+	class... ArgP
 >
 void
 write(
@@ -256,7 +256,7 @@ write(
 */
 template<
 	Format const& format,
-	typename... ArgP
+	class... ArgP
 >
 inline String
 print(
@@ -305,7 +305,7 @@ operator<<(
 */
 template<
 	Format const& format,
-	typename... ArgP
+	class... ArgP
 >
 inline FormatSentinel
 write_sentinel(
