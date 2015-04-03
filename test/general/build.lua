@@ -1,5 +1,4 @@
 
-make_tests(
-	"general", {
+make_tests("general", {
 	["format"] = {nil, nil},
 })
