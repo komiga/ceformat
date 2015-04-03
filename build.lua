@@ -5,9 +5,7 @@ precore.make_config_scoped("ceformat.env", {
 	once = true,
 }, {
 {global = function()
-	precore.env_global({
-		CEFORMAT_ROOT = os.getcwd(),
-	}, true)
+	precore.define_group("CEFORMAT", os.getcwd())
 end}})
 
 precore.make_config("ceformat.strict", nil, {
