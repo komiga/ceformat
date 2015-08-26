@@ -41,7 +41,7 @@ precore.make_config("ceformat.dep", nil, {
 {project = function()
 	configuration {}
 		includedirs {
-			S"${CEFORMAT_ROOT}/",
+			G"${CEFORMAT_ROOT}/",
 		}
 end}})
 
