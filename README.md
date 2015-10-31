@@ -15,8 +15,8 @@ not supported due to its lack of support for the use of values belonging to an
 object being constructed in a constant expression (and probably for many many
 other reasons).
 
-Tests can be compiled using plash's standard project protocol:
-http://komiga.com/pp-cpp
+Tests can be compiled using
+my [standard project protocol](http://komiga.com/pp-cpp).
 
 ## License
 
@@ -24,7 +24,7 @@ ceformat carries the MIT license, which can be found both below
 and in the `LICENSE` file.
 
 ```
-Copyright (c) 2013-2015 plash <plash@komiga.com>
+Copyright (c) 2013-2015 Coranna Howard <me@komiga.com>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
